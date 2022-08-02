@@ -117,7 +117,10 @@ class Evaluate:
         elif i=="/":
             a=self.pop()
             b=self.pop()
-            self.stack.insert(0,b//a)
+            if b>a:
+              self.stack.insert(0,b//a)
+             else:
+              self.stack.insert(0,a//b)
         elif i=="^":
             a=self.pop()
             b=self.pop()
