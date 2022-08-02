@@ -119,7 +119,7 @@ class Evaluate:
             b=self.pop()
             if b>a:
               self.stack.insert(0,b//a)
-             else:
+            else:
               self.stack.insert(0,a//b)
         elif i=="^":
             a=self.pop()
