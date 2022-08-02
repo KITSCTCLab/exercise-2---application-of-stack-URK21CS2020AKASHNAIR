@@ -24,7 +24,12 @@ class Evaluate:
     Returns:
       True if it is empty, else returns False.
     """
-      # Write your code here
+    # Write your code here
+    if self.stack==[]:
+        return True
+    else:
+        return False
+        
 
 
   def pop(self):
@@ -34,6 +39,10 @@ class Evaluate:
       The data which is popped out if the stack is not empty.
     """
     # Write your code here
+    if not self.isEmpty():
+        return self.stack.pop()
+        
+        
 
 
   def push(self, operand):
@@ -43,6 +52,9 @@ class Evaluate:
       operand: The operand to be pushed.
     """
     # Write your code here
+    if len(self.stack)!=self.size_of_stack:
+        self.stack.append(operand)
+        self.top=self.top+1
 
 
   def validate_postfix_expression(self, expression):
@@ -54,6 +66,29 @@ class Evaluate:
       True if the expression is valid, else returns False.
     """
     # Write your code here
+    count1=0
+    count2=0
+    opr=[]
+    for i in expression:
+      if (i=="+" or i =="-" or i=="*" or i=="/" or i=="^"):
+        count1=count1+1
+        opr.append(i)
+      else:
+          k=int(i)
+          if isinstance(k,int):
+            count2+=1
+    if count2-1==count1:
+        a=int(expression[0])
+        b=int(expression[1])
+        if isinstance(a,int) and isinstance(b ,int) and expression[-1] in opr:
+          return True
+        else:
+          return False
+        
+    else:
+      return False
+    
+        
 
 
   def evaluate_postfix_expression(self, expression):
@@ -65,6 +100,35 @@ class Evaluate:
       The result of evaluated postfix expression.
     """
     # Write your code here
+    for i in expression:
+        if i=="+":
+            a=self.pop()
+            b=self.pop()
+            self.stack.insert(0,b+a)
+            
+        elif i=="-":
+            a=self.pop()
+            b=self.pop()
+            self.stack.insert(0,b-a)
+        elif i=="*":
+            a=self.pop()
+            b=self.pop()
+            self.stack.insert(0,b*a)
+        elif i=="/":
+            a=self.pop()
+            b=self.pop()
+            self.stack.insert(0,b/a)
+        elif i=="^":
+            a=self.pop()
+            b=self.pop()
+            self.stack.insert(0,b**a)
+        else:
+            k=int(i)
+            if isinstance(k,int):
+                self.push(k)
+    return(self.stack[0])
+        
+    
 
 
 # Do not change the following code
@@ -75,3 +139,5 @@ if evaluate.validate_postfix_expression(tokens):
     print(evaluate.evaluate_postfix_expression(tokens))
 else:
     print('Invalid postfix expression')
+
+
